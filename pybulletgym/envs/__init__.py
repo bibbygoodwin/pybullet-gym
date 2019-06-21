@@ -155,6 +155,41 @@ register(
 )
 
 
+## phase-based roboschool locomotors
+register(
+	id='Walker2DPyBulletPhaseEnv-v0',
+	entry_point='pybulletgym.envs.roboschool.envs.locomotion.phase_based_envs:Walker2DBulletPhaseEnv',
+	max_episode_steps=1000,
+	reward_threshold=2500.0
+	)
+register(
+	id='HalfCheetahPyBulletPhaseEnv-v0',
+	entry_point='pybulletgym.envs.roboschool.envs.locomotion.phase_based_envs:HalfCheetahBulletPhaseEnv',
+	max_episode_steps=1000,
+	reward_threshold=3000.0
+	)
+
+register(
+	id='AntPyBulletPhaseEnv-v0',
+	entry_point='pybulletgym.envs.roboschool.envs.locomotion.phase_based_envs:AntBulletPhaseEnv',
+	max_episode_steps=1000,
+	reward_threshold=2500.0
+	)
+
+register(
+	id='HopperPyBulletPhaseEnv-v0',
+	entry_point='pybulletgym.envs.roboschool.envs.locomotion.phase_based_envs:HopperBulletPhaseEnv',
+	max_episode_steps=1000,
+	reward_threshold=2500.0
+	)
+
+register(
+	id='HumanoidPyBulletPhaseEnv-v0',
+	entry_point='pybulletgym.envs.roboschool.envs.locomotion.phase_based_envs:HumanoidBulletPhaseEnv',
+	max_episode_steps=1000
+	)
+
+
 def get_list():
 	envs = ['- ' + spec.id for spec in gym.pgym.envs.registry.all() if spec.id.find('Bullet') >= 0 or spec.id.find('MuJoCo') >= 0]
 	return envs
