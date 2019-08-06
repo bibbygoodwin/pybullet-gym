@@ -189,6 +189,74 @@ register(
 	max_episode_steps=1000
 	)
 
+## phase-based 'harder' roboschool locomotors - blocks thrown
+register(
+	id='Walker2DPyBulletPhaseHarderEnv-v0',
+	entry_point='pybulletgym.envs.roboschool.envs.locomotion.phase_based_envs:Walker2DBulletPhaseHarderEnv',
+	max_episode_steps=1000,
+	reward_threshold=2500.0
+	)
+register(
+	id='HalfCheetahPyBulletPhaseHarderEnv-v0',
+	entry_point='pybulletgym.envs.roboschool.envs.locomotion.phase_based_envs:HalfCheetahBulletPhaseHarderEnv',
+	max_episode_steps=1000,
+	reward_threshold=3000.0
+	)
+
+register(
+	id='AntPyBulletPhaseHarderEnv-v0',
+	entry_point='pybulletgym.envs.roboschool.envs.locomotion.phase_based_envs:AntBulletPhaseHarderEnv',
+	max_episode_steps=1000,
+	reward_threshold=2500.0
+	)
+
+register(
+	id='HopperPyBulletPhaseHarderEnv-v0',
+	entry_point='pybulletgym.envs.roboschool.envs.locomotion.phase_based_envs:HopperBulletPhaseHarderEnv',
+	max_episode_steps=1000,
+	reward_threshold=2500.0
+	)
+
+register(
+	id='HumanoidPyBulletPhaseHarderEnv-v0',
+	entry_point='pybulletgym.envs.roboschool.envs.locomotion.phase_based_envs:HumanoidBulletPhaseHarderEnv',
+	max_episode_steps=1000
+	)
+
+## standard (non-phase) 'harder' roboschool locomotors - blocks thrown
+register(
+	id='Walker2DPyBulletHarderEnv-v0',
+	entry_point='pybulletgym.envs.roboschool.envs.locomotion.harder_envs:Walker2DBulletHarderEnv',
+	max_episode_steps=1000,
+	reward_threshold=2500.0
+	)
+register(
+	id='HalfCheetahPyBulletHarderEnv-v0',
+	entry_point='pybulletgym.envs.roboschool.envs.locomotion.harder_envs:HalfCheetahBulletHarderEnv',
+	max_episode_steps=1000,
+	reward_threshold=3000.0
+	)
+
+register(
+	id='AntPyBulletHarderEnv-v0',
+	entry_point='pybulletgym.envs.roboschool.envs.locomotion.harder_envs:AntBulletHarderEnv',
+	max_episode_steps=1000,
+	reward_threshold=2500.0
+	)
+
+register(
+	id='HopperPyBulletHarderEnv-v0',
+	entry_point='pybulletgym.envs.roboschool.envs.locomotion.harder_envs:HopperBulletHarderEnv',
+	max_episode_steps=1000,
+	reward_threshold=2500.0
+	)
+
+register(
+	id='HumanoidPyBulletHarderEnv-v0',
+	entry_point='pybulletgym.envs.roboschool.envs.locomotion.harder_envs:HumanoidBulletHarderEnv',
+	max_episode_steps=1000
+	)
+
 
 def get_list():
 	envs = ['- ' + spec.id for spec in gym.pgym.envs.registry.all() if spec.id.find('Bullet') >= 0 or spec.id.find('MuJoCo') >= 0]
