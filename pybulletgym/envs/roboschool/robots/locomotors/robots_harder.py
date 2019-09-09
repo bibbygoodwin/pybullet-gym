@@ -12,15 +12,21 @@ class AntHarder(WalkerBase, MJCFBasedRobot):
         MJCFBasedRobot.__init__(self, "ant.xml", "torso", action_dim=8, obs_dim=28)
         self.aggressive_cube = None
         self.frame = 0
+        self.reset_count = 0
+        # self.cube_masses = np.repeat(np.arange(0.1,1.1,0.05),10) # [0.1 (10 times), 0.15 (10 times), ..., 1.05, 1.05]
+        self.cube_masses = np.repeat(np.arange(0.1,2.2,1),3) # [0.1 (10 times), 0.15 (10 times), ..., 1.05, 1.05]
+        self.cube_masses = np.repeat(np.linspace(0.1,6.2,12),5) # [0.1 (10 times), 0.15 (10 times), ..., 1.05, 1.05]
 
     def robot_specific_reset(self, bullet_client):
         WalkerBase.robot_specific_reset(self, bullet_client)
         self.frame = 0
         if self.aggressive_cube:
             self._p.resetBasePositionAndOrientation(self.aggressive_cube.bodies[0], [-1.5, 0, 0.05], [0, 0, 0, 1])
+            self._p.changeDynamics(self.aggressive_cube.bodies[0], -1, mass=self.cube_masses[self.reset_count])
         else:
             self.aggressive_cube = ObjectHelper.get_cube(self._p, -1.5,0,0.05)
-
+            self._p.changeDynamics(self.aggressive_cube.bodies[0], -1, mass=self.cube_masses[self.reset_count])
+        self.reset_count += 1
 
     def alive_bonus(self, z, pitch):
         if self.frame % 30 == 0 and self.frame > 10:
@@ -53,6 +59,9 @@ class HalfCheetahHarder(WalkerBase, MJCFBasedRobot):
         MJCFBasedRobot.__init__(self, "half_cheetah.xml", "torso", action_dim=6, obs_dim=26)
         self.aggressive_cube = None
         self.frame = 0
+        self.reset_count = 0
+        self.cube_masses = np.repeat(np.linspace(0.1,2.2,12),5) # [0.1 (10 times), 0.15 (10 times), ..., 1.05, 1.05]
+
 
     def alive_bonus(self, z, pitch):
         if self.frame % 30 == 0 and self.frame > 10:
@@ -89,9 +98,11 @@ class HalfCheetahHarder(WalkerBase, MJCFBasedRobot):
         self.frame = 0
         if self.aggressive_cube:
             self._p.resetBasePositionAndOrientation(self.aggressive_cube.bodies[0], [-1.5, 0, 0.05], [0, 0, 0, 1])
+            self._p.changeDynamics(self.aggressive_cube.bodies[0], -1, mass=self.cube_masses[self.reset_count])
         else:
-            self.aggressive_cube = ObjectHelper.get_cube(self._p, -1.5, 0, 0.05)
-
+            self.aggressive_cube = ObjectHelper.get_cube(self._p, -1.5,0,0.05)
+            self._p.changeDynamics(self.aggressive_cube.bodies[0], -1, mass=self.cube_masses[self.reset_count])
+        self.reset_count += 1
 
 class HopperHarder(WalkerBase, MJCFBasedRobot):
     foot_list = ["foot"]
@@ -101,14 +112,20 @@ class HopperHarder(WalkerBase, MJCFBasedRobot):
         MJCFBasedRobot.__init__(self, "hopper.xml", "torso", action_dim=3, obs_dim=15)
         self.aggressive_cube = None
         self.frame = 0
+        self.reset_count = 0
+        self.cube_masses = np.repeat(np.linspace(0.1,2.2,12),5) # [0.1 (10 times), 0.15 (10 times), ..., 1.05, 1.05]
+
 
     def robot_specific_reset(self, bullet_client):
         WalkerBase.robot_specific_reset(self, bullet_client)
         self.frame = 0
         if self.aggressive_cube:
             self._p.resetBasePositionAndOrientation(self.aggressive_cube.bodies[0], [-1.5, 0, 0.05], [0, 0, 0, 1])
+            self._p.changeDynamics(self.aggressive_cube.bodies[0], -1, mass=self.cube_masses[self.reset_count])
         else:
             self.aggressive_cube = ObjectHelper.get_cube(self._p, -1.5,0,0.05)
+            self._p.changeDynamics(self.aggressive_cube.bodies[0], -1, mass=self.cube_masses[self.reset_count])
+        self.reset_count += 1
 
     def alive_bonus(self, z, pitch):
         if self.frame % 30 == 0 and self.frame > 10:
@@ -145,6 +162,9 @@ class HumanoidHarder(WalkerBase, MJCFBasedRobot):
         self.random_lean = random_lean
         self.aggressive_cube = None
         self.frame = 0
+        self.reset_count = 0
+        self.cube_masses = np.repeat(np.linspace(0.1,2.2,12),5) # [0.1 (10 times), 0.15 (10 times), ..., 1.05, 1.05]
+
 
     def robot_specific_reset(self, bullet_client):
         WalkerBase.robot_specific_reset(self, bullet_client)
@@ -182,9 +202,11 @@ class HumanoidHarder(WalkerBase, MJCFBasedRobot):
         self.frame = 0
         if self.aggressive_cube:
             self._p.resetBasePositionAndOrientation(self.aggressive_cube.bodies[0], [-1.5, 0, 0.05], [0, 0, 0, 1])
+            self._p.changeDynamics(self.aggressive_cube.bodies[0], -1, mass=self.cube_masses[self.reset_count])
         else:
             self.aggressive_cube = ObjectHelper.get_cube(self._p, -1.5,0,0.05)
-
+            self._p.changeDynamics(self.aggressive_cube.bodies[0], -1, mass=self.cube_masses[self.reset_count])
+        self.reset_count += 1
 
     def apply_action(self, a):
         assert(np.isfinite(a).all())
@@ -223,6 +245,9 @@ class Walker2DHarder(WalkerBase, MJCFBasedRobot):
         MJCFBasedRobot.__init__(self, "walker2d.xml", "torso", action_dim=6, obs_dim=22)
         self.aggressive_cube = None
         self.frame = 0
+        self.reset_count = 0
+        self.cube_masses = np.repeat(np.linspace(0.1,2.2,12),5) # [0.1 (10 times), 0.15 (10 times), ..., 1.05, 1.05]
+
 
     def alive_bonus(self, z, pitch):
         if self.frame % 30 == 0 and self.frame > 10:
@@ -253,5 +278,8 @@ class Walker2DHarder(WalkerBase, MJCFBasedRobot):
         self.frame = 0
         if self.aggressive_cube:
             self._p.resetBasePositionAndOrientation(self.aggressive_cube.bodies[0], [-1.5, 0, 0.05], [0, 0, 0, 1])
+            self._p.changeDynamics(self.aggressive_cube.bodies[0], -1, mass=self.cube_masses[self.reset_count])
         else:
-            self.aggressive_cube = ObjectHelper.get_cube(self._p, -1.5, 0, 0.05)
+            self.aggressive_cube = ObjectHelper.get_cube(self._p, -1.5,0,0.05)
+            self._p.changeDynamics(self.aggressive_cube.bodies[0], -1, mass=self.cube_masses[self.reset_count])
+        self.reset_count += 1
