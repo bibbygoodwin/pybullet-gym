@@ -15,7 +15,7 @@ class AntHarder(WalkerBase, MJCFBasedRobot):
         self.reset_count = 0
         # self.cube_masses = np.repeat(np.arange(0.1,1.1,0.05),10) # [0.1 (10 times), 0.15 (10 times), ..., 1.05, 1.05]
         self.cube_masses = np.repeat(np.arange(0.1,2.2,1),3) # [0.1 (10 times), 0.15 (10 times), ..., 1.05, 1.05]
-        self.cube_masses = np.repeat(np.linspace(0.1,6.2,12),5) # [0.1 (10 times), 0.15 (10 times), ..., 1.05, 1.05]
+        self.cube_masses = np.repeat(np.linspace(0.1,6.2,50),20) # [0.1 (10 times), 0.15 (10 times), ..., 1.05, 1.05]
 
     def robot_specific_reset(self, bullet_client):
         WalkerBase.robot_specific_reset(self, bullet_client)
@@ -60,7 +60,7 @@ class HalfCheetahHarder(WalkerBase, MJCFBasedRobot):
         self.aggressive_cube = None
         self.frame = 0
         self.reset_count = 0
-        self.cube_masses = np.repeat(np.linspace(0.1,2.2,12),5) # [0.1 (10 times), 0.15 (10 times), ..., 1.05, 1.05]
+        self.cube_masses = np.repeat(np.linspace(0.1,2.2,50),20) # [0.1 (10 times), 0.15 (10 times), ..., 1.05, 1.05]
 
 
     def alive_bonus(self, z, pitch):
@@ -113,7 +113,7 @@ class HopperHarder(WalkerBase, MJCFBasedRobot):
         self.aggressive_cube = None
         self.frame = 0
         self.reset_count = 0
-        self.cube_masses = np.repeat(np.linspace(0.1,2.2,12),5) # [0.1 (10 times), 0.15 (10 times), ..., 1.05, 1.05]
+        self.cube_masses = np.repeat(np.linspace(0.1,2.2,50),20) # [0.1 (10 times), 0.15 (10 times), ..., 1.05, 1.05]
 
 
     def robot_specific_reset(self, bullet_client):
@@ -163,7 +163,7 @@ class HumanoidHarder(WalkerBase, MJCFBasedRobot):
         self.aggressive_cube = None
         self.frame = 0
         self.reset_count = 0
-        self.cube_masses = np.repeat(np.linspace(0.1,2.2,12),5) # [0.1 (10 times), 0.15 (10 times), ..., 1.05, 1.05]
+        self.cube_masses = np.repeat(np.linspace(0.1,2.2,50),20) # [0.1 (10 times), 0.15 (10 times), ..., 1.05, 1.05]
 
 
     def robot_specific_reset(self, bullet_client):
@@ -246,7 +246,7 @@ class Walker2DHarder(WalkerBase, MJCFBasedRobot):
         self.aggressive_cube = None
         self.frame = 0
         self.reset_count = 0
-        self.cube_masses = np.repeat(np.linspace(0.1,2.2,12),5) # [0.1 (10 times), 0.15 (10 times), ..., 1.05, 1.05]
+        self.cube_masses = np.repeat(np.linspace(0.1,2.2,50),20) # [0.1 (10 times), 0.15 (10 times), ..., 1.05, 1.05]
 
 
     def alive_bonus(self, z, pitch):
