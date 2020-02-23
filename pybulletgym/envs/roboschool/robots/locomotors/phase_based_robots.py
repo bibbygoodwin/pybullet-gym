@@ -7,7 +7,7 @@ class AntPhase(WalkerBase, MJCFBasedRobot):
 
     def __init__(self):
         WalkerBase.__init__(self, power=2.5)
-        MJCFBasedRobot.__init__(self, "ant.xml", "torso", action_dim=8+1, obs_dim=28+1)
+        MJCFBasedRobot.__init__(self, "ant.xml", "torso", action_dim=8, obs_dim=28+1)
 
     def alive_bonus(self, z, pitch):
         return +1 if z > 0.26 else -1  # 0.25 is central sphere rad, die if it scrapes the ground
@@ -18,7 +18,7 @@ class HalfCheetahPhase(WalkerBase, MJCFBasedRobot):
 
     def __init__(self):
         WalkerBase.__init__(self, power=0.90)
-        MJCFBasedRobot.__init__(self, "half_cheetah.xml", "torso", action_dim=6+1, obs_dim=26+1)
+        MJCFBasedRobot.__init__(self, "half_cheetah.xml", "torso", action_dim=6, obs_dim=26+1)
 
     def alive_bonus(self, z, pitch):
         # Use contact other than feet to terminate episode: due to a lot of strange walks using knees
@@ -38,7 +38,7 @@ class HopperPhase(WalkerBase, MJCFBasedRobot):
 
     def __init__(self):
         WalkerBase.__init__(self, power=0.75)
-        MJCFBasedRobot.__init__(self, "hopper.xml", "torso", action_dim=3+1, obs_dim=15+1)
+        MJCFBasedRobot.__init__(self, "hopper.xml", "torso", action_dim=3, obs_dim=15+1)
 
     def alive_bonus(self, z, pitch):
         return +1 if z > 0.8 and abs(pitch) < 1.0 else -1
@@ -50,7 +50,7 @@ class HumanoidPhase(WalkerBase, MJCFBasedRobot):
 
     def __init__(self, random_yaw = False, random_lean=False):
         WalkerBase.__init__(self, power=0.41)
-        MJCFBasedRobot.__init__(self, 'humanoid_symmetric.xml', 'torso', action_dim=17+1, obs_dim=44+1)
+        MJCFBasedRobot.__init__(self, 'humanoid_symmetric.xml', 'torso', action_dim=17, obs_dim=44+1)
         # 17 joints, 4 of them important for walking (hip, knee), others may as well be turned off, 17/4 = 4.25
         self.random_yaw = random_yaw
         self.random_lean = random_lean
@@ -103,7 +103,7 @@ class Walker2DPhase(WalkerBase, MJCFBasedRobot):
 
     def __init__(self):
         WalkerBase.__init__(self, power=0.40)
-        MJCFBasedRobot.__init__(self, "walker2d.xml", "torso", action_dim=6+1, obs_dim=22+1)
+        MJCFBasedRobot.__init__(self, "walker2d.xml", "torso", action_dim=6, obs_dim=22+1)
 
     def alive_bonus(self, z, pitch):
         return +1 if z > 0.8 and abs(pitch) < 1.0 else -1
