@@ -13,7 +13,7 @@ class WalkerPhaseBaseBulletEnv(BaseBulletEnv):
         self.walk_target_y = 0
         self.stateId = -1
 
-        self.phi = 0
+        self.phi = np.array([0.0])
 
     def create_single_player_scene(self, bullet_client):
         self.stadium_scene = StadiumScene(bullet_client, gravity=9.8, timestep=0.0165/4, frame_skip=4)
@@ -36,7 +36,7 @@ class WalkerPhaseBaseBulletEnv(BaseBulletEnv):
             self.stateId=self._p.saveState()
         # print("saving state self.stateId:",self.stateId)
 
-        self.phi = 0
+        self.phi = np.array([0.0])
 
         r = np.concatenate([r, np.array([self.phi])])
 
