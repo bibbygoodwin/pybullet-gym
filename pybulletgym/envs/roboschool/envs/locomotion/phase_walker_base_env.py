@@ -38,7 +38,7 @@ class WalkerPhaseBaseBulletEnv(BaseBulletEnv):
 
         self.phi = np.array([0.0])
 
-        r = np.concatenate([r, np.array([self.phi])])
+        r = np.concatenate([r, self.phi.reshape(1)])
 
         return r
 
