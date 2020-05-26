@@ -9,9 +9,9 @@ class ReacherSequentialBulletEnv(BaseBulletEnv):
     def __init__(self):
         self.robot = ReacherSequential()
         BaseBulletEnv.__init__(self, self.robot)
-        self._cam_dist = 5
+        self._cam_dist = 3.55 # tuned to just crop border
         self._cam_yaw = 0
-        self._cam_pitch = -45
+        self._cam_pitch = -90
         self._render_width = 240
         self._render_height = 240
 
@@ -28,16 +28,17 @@ class ReacherSequentialBulletEnv(BaseBulletEnv):
         potential_old = self.potential
         self.potential = self.robot.calc_potential()
 
-        if self.potential/(-100) < 0.02:
-            self.done = True
-            self.rewards.append(5.0)
-
         electricity_cost = (
                 -0.10 * (np.abs(a[0] * self.robot.theta_dot) + np.abs(a[1] * self.robot.gamma_dot))  # work torque*angular_velocity
                 - 0.01 * (np.abs(a[0]) + np.abs(a[1]))  # stall torque require some energy
         )
         stuck_joint_cost = -0.1 if np.abs(np.abs(self.robot.gamma) - 1) < 0.01 else 0.0
         self.rewards = [float(self.potential - potential_old), float(electricity_cost), float(stuck_joint_cost)]
+
+        if self.potential/(-100) < 0.02:
+            self.done = True
+            # self.rewards.append(5.0)
+
         self.HUD(state, a, False)
         return state, sum(self.rewards), self.done, {}
 
