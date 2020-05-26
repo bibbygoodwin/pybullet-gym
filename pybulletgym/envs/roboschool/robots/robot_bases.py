@@ -106,6 +106,7 @@ class MJCFBasedRobot(XmlBasedRobot):
         XmlBasedRobot.__init__(self, robot_name, action_dim, obs_dim, self_collision)
         self.model_xml = model_xml
         self.doneLoading = 0
+        self.parent_collision = parent_collision
 
     def reset(self, bullet_client):
         full_path = os.path.join(os.path.dirname(__file__), "..", "..", "assets", "mjcf", self.model_xml)
