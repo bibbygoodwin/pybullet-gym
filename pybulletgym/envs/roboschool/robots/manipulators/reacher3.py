@@ -3,16 +3,28 @@ import numpy as np
 
 
 class Reacher3(MJCFBasedRobot):
-    TARG_LIMIT = 0.27
+    TARG_LIMIT = 0.116 # gives approx 10° angles in each link
 
     def __init__(self):
-        MJCFBasedRobot.__init__(self, 'reacher3.xml', 'body0', action_dim=3, obs_dim=11)
-
+        MJCFBasedRobot.__init__(self,
+                                'reacher3.xml',
+                                'body0',
+                                action_dim=3,
+                                obs_dim=11,
+                                parent_collision=True)
+        self.goal_positions = np.array(
+            [
+                [self.TARG_LIMIT, self.TARG_LIMIT],
+                [self.TARG_LIMIT, -self.TARG_LIMIT],
+                [-self.TARG_LIMIT, -self.TARG_LIMIT],
+                [-self.TARG_LIMIT, self.TARG_LIMIT]
+            ],  # defined clockwise NE->SE->SW->NW
+            dtype=np.float32
+        )
     def robot_specific_reset(self, bullet_client):
-        self.jdict["target_x"].reset_current_position(
-            self.np_random.uniform(low=-self.TARG_LIMIT, high=self.TARG_LIMIT), 0)
-        self.jdict["target_y"].reset_current_position(
-            self.np_random.uniform(low=-self.TARG_LIMIT, high=self.TARG_LIMIT), 0)
+        self.goal = self.goal_positions[self.np_random.randint(4)]
+        self.jdict["target_x"].reset_current_position(self.goal[0], 0)
+        self.jdict["target_y"].reset_current_position(self.goal[1], 0)
         self.fingertip = self.parts["fingertip"]
         self.target = self.parts["target"]
         self.central_joint = self.jdict["joint0"]
@@ -20,8 +32,8 @@ class Reacher3(MJCFBasedRobot):
         self.elbow_joint2 = self.jdict["joint2"]
         # TODO: May need to change random init to avoid self-collision
         self.central_joint.reset_current_position(self.np_random.uniform(low=-3.14, high=3.14), 0)
-        self.elbow_joint1.reset_current_position(self.np_random.uniform(low=-1.57, high=1.57), 0)
-        self.elbow_joint2.reset_current_position(self.np_random.uniform(low=-1.57, high=1.57), 0)
+        self.elbow_joint1.reset_current_position(self.np_random.uniform(low=-1.57/2, high=1.57/2), 0)
+        self.elbow_joint2.reset_current_position(self.np_random.uniform(low=-1.57/2, high=1.57/2), 0)
 
 
     def apply_action(self, a):
