@@ -12,8 +12,14 @@ class ReacherSequentialBulletEnv(BaseBulletEnv):
         self._cam_dist = 3.55 # tuned to just crop border
         self._cam_yaw = 0
         self._cam_pitch = -90
+        # self._cam_dist = 5
+        # self._cam_yaw = 0
+        # self._cam_pitch = -45
         self._render_width = 240
         self._render_height = 240
+
+        self.task_specific_values = self.robot.goal_positions
+        self.task_specific_obs_indices = np.r_[0:2]
 
     def create_single_player_scene(self, bullet_client):
         return SingleRobotEmptyScene(bullet_client, gravity=0.0, timestep=0.0165, frame_skip=1)

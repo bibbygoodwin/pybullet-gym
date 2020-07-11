@@ -6,11 +6,15 @@ from pybulletgym.envs.roboschool.robots.robot_bases import MJCFBasedRobot
 
 
 class ReacherSequential(MJCFBasedRobot):
-    DEFAULT_GOAL_ORDERS = np.array(sorted(itertools.permutations(range(4), 4)))
     TARG_LIMIT = 0.116 # gives approx 10° angles in each link
 
     def __init__(self):
-        MJCFBasedRobot.__init__(self, 'reacher.xml', 'body0', action_dim=2, obs_dim=9)
+        MJCFBasedRobot.__init__(self,
+                                'reacher.xml',
+                                'body0',
+                                action_dim=2,
+                                obs_dim=9,
+                                parent_collision=True)
         self.goal_positions = np.array(
             [
                 [self.TARG_LIMIT, self.TARG_LIMIT],
