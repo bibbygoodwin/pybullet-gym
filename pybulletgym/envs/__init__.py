@@ -257,6 +257,37 @@ register(
 	max_episode_steps=1000
 	)
 
+## 3 link reacher
+register(
+	id='Reacher3PyBulletEnv-v0',
+	entry_point='pybulletgym.envs.roboschool.envs.manipulation.reacher3_env:Reacher3BulletEnv',
+	max_episode_steps=150,
+	reward_threshold=18.0,
+	)
+
+# 2-link reacher with episode termination
+register(
+	id='ReacherTerminatePyBulletEnv-v0',
+	entry_point='pybulletgym.envs.roboschool.envs.manipulation.reacher_terminate_env:ReacherTerminateBulletEnv',
+	max_episode_steps=150,
+	reward_threshold=18.0,
+	)
+
+# 2-link reacher with episode termination and 4 goals
+register(
+	id='ReacherSequentialPyBulletEnv-v0',
+	entry_point='pybulletgym.envs.roboschool.envs.manipulation.reacher_sequential_env:ReacherSequentialBulletEnv',
+	max_episode_steps=150,
+	reward_threshold=18.0,
+	)
+
+# 2-link reacher with episode termination and 4 coloured targets, random positions
+register(
+	id='ReacherColoursPyBulletEnv-v0',
+	entry_point='pybulletgym.envs.roboschool.envs.manipulation.reacher_colours_env:ReacherColoursBulletEnv',
+	max_episode_steps=150,
+	reward_threshold=18.0,
+	)
 
 def get_list():
 	envs = ['- ' + spec.id for spec in gym.pgym.envs.registry.all() if spec.id.find('Bullet') >= 0 or spec.id.find('MuJoCo') >= 0]
