@@ -41,7 +41,13 @@ class Reacher3BulletEnv(BaseBulletEnv):
                          np.abs(a[2] * self.robot.gamma2_dot))  # work torque*angular_velocity
                 - 0.01 * (np.abs(a[0]) + np.abs(a[1]))  # stall torque require some energy
         )
-        stuck_joint_cost = -0.1 if np.abs(np.abs(self.robot.gamma1) - 1) < 0.01 else 0.0
+        stuck_joint_cost1 = -0.1 if np.abs(np.abs(self.robot.gamma1) - 1) < 0.11 else 0.0
+        # stuck_joint_cost2 = -0.1 if np.abs(np.abs(self.robot.gamma2) - 1) < 0.03 else 0.0
+        stuck_joint_cost2 = -0.1 if np.abs(np.abs(self.robot.gamma2) - 1) < 0.09 else 0.0
+        stuck_joint_cost3 = -0.2 if np.abs(self.robot.gamma1) + np.abs(self.robot.gamma2) < 0.14 else 0.0
+
+        stuck_joint_cost = stuck_joint_cost1 + stuck_joint_cost2 +stuck_joint_cost3
+
         self.rewards = [float(self.potential - potential_old), float(electricity_cost), float(stuck_joint_cost)]
         if self.potential/(-100) < 0.02:
             self.done = True

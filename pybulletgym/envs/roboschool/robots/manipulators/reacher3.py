@@ -11,7 +11,7 @@ class Reacher3(MJCFBasedRobot):
                                 'body0',
                                 action_dim=3,
                                 obs_dim=11,
-                                parent_collision=True)
+                                parent_collision=False)
         self.goal_positions = np.array(
             [
                 [self.TARG_LIMIT, self.TARG_LIMIT],
@@ -34,6 +34,7 @@ class Reacher3(MJCFBasedRobot):
         self.central_joint.reset_current_position(self.np_random.uniform(low=-3.14, high=3.14), 0)
         self.elbow_joint1.reset_current_position(self.np_random.uniform(low=-1.57/2, high=1.57/2), 0)
         self.elbow_joint2.reset_current_position(self.np_random.uniform(low=-1.57/2, high=1.57/2), 0)
+        # self.elbow_joint2.reset_current_position(self.np_random.uniform(low=-1.57/2, high=1.57/2), 0)
 
 
     def apply_action(self, a):
@@ -47,6 +48,7 @@ class Reacher3(MJCFBasedRobot):
         theta, self.theta_dot = self.central_joint.current_relative_position()
         self.gamma1, self.gamma1_dot = self.elbow_joint1.current_relative_position()
         self.gamma2, self.gamma2_dot = self.elbow_joint2.current_relative_position()
+        # print(self.gamma1, self.gamma2)
         target_x, _ = self.jdict["target_x"].current_position()
         target_y, _ = self.jdict["target_y"].current_position()
         self.to_target_vec = np.array(self.fingertip.pose().xyz()) - np.array(self.target.pose().xyz())
