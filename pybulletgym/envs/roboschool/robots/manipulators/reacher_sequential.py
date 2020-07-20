@@ -14,7 +14,7 @@ class ReacherSequential(MJCFBasedRobot):
                                 'body0',
                                 action_dim=2,
                                 obs_dim=9,
-                                parent_collision=True)
+                                parent_collision=False)
         self.goal_positions = np.array(
             [
                 [self.TARG_LIMIT, self.TARG_LIMIT],

@@ -38,12 +38,14 @@ class ReacherSequentialBulletEnv(BaseBulletEnv):
                 -0.10 * (np.abs(a[0] * self.robot.theta_dot) + np.abs(a[1] * self.robot.gamma_dot))  # work torque*angular_velocity
                 - 0.01 * (np.abs(a[0]) + np.abs(a[1]))  # stall torque require some energy
         )
-        stuck_joint_cost = -0.1 if np.abs(np.abs(self.robot.gamma) - 1) < 0.01 else 0.0
+        # stuck_joint_cost = -0.1 if np.abs(np.abs(self.robot.gamma) - 1) < 0.01 else 0.0
+        stuck_joint_cost = -0.1 if np.abs(np.abs(self.robot.gamma) - 1) < 0.08 else 0.0
+
         self.rewards = [float(self.potential - potential_old), float(electricity_cost), float(stuck_joint_cost)]
 
         if self.potential/(-100) < 0.02:
             self.done = True
-            # self.rewards.append(5.0)
+            self.rewards.append(5.0)
 
         self.HUD(state, a, False)
         return state, sum(self.rewards), self.done, {}
