@@ -289,6 +289,23 @@ register(
 	reward_threshold=18.0,
 	)
 
+# Constrained environments where reacher tip is init in same quadrant as goal:
+# 2-link reacher with episode termination and 4 goals
+register(
+	id='ReacherSequentialConstrainedPyBulletEnv-v0',
+	entry_point='pybulletgym.envs.roboschool.envs.manipulation.reacher_sequential_constrained_env:ReacherSequentialConstrainedBulletEnv',
+	max_episode_steps=150,
+	reward_threshold=18.0,
+	)
+## 3 link reacher
+register(
+	id='Reacher3ConstrainedPyBulletEnv-v0',
+	entry_point='pybulletgym.envs.roboschool.envs.manipulation.reacher3_constrained_env:Reacher3ConstrainedBulletEnv',
+	max_episode_steps=150,
+	reward_threshold=18.0,
+	)
+
+
 def get_list():
 	envs = ['- ' + spec.id for spec in gym.pgym.envs.registry.all() if spec.id.find('Bullet') >= 0 or spec.id.find('MuJoCo') >= 0]
 	return envs
